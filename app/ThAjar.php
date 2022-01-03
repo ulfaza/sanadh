@@ -1,0 +1,19 @@
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+
+class ThAjar extends Model
+{
+    use Notifiable;
+
+	protected $table = 'th_ajar';
+	public $timestamps = false;
+    protected $primarykey = 'ta_id';
+
+    protected $fillable = [
+        'smt', 'th_ajar', 
+    ];
+}
