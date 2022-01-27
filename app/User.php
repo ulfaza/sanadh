@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $primarykey = 'id';
 
     protected $fillable = [
-        'nama', 'role', 'email', 'password',
+        'nama', 'username', 'foto', 'role', 'password',
     ];
 
     /**
@@ -39,5 +39,10 @@ class User extends Authenticatable
 
     public function isUser() {
         return $this->role === self::USERS_TYPE;
+    }
+
+    public function uji_kh()
+    {
+        return $this->hasMany(\App\UjiKh::class);
     }
 }

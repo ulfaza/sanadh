@@ -26,7 +26,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+
+    public function username()
+    {
+        return 'username';
+    }
+   
     public function authenticated(){
         $user = \Auth::user();
         if(\Auth::check()){
@@ -37,8 +42,11 @@ class LoginController extends Controller
                 return redirect('/guru/home');
             }
             else{
-                return redirect()->route('login');                
+                return redirect()->route('/');                
             }
+        }
+        else{
+            return redirect()->route('/');                
         }
     }
     /**
@@ -59,6 +67,6 @@ class LoginController extends Controller
  
         $request->session()->regenerate();
  
-        return redirect('/login');
+        return redirect('/');
     }
 }

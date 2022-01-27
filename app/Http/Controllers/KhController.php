@@ -25,7 +25,7 @@ class KhController extends Controller
             if($request->action == 'edit')
             {
                 $data = array(
-                    'jenis_kh'  =>  $request->jenis_kh,
+                    'kh_nama'   =>  $request->kh_nama,
                     'kkm'      	=>  $request->kkm,
                     'aspek1'    =>  $request->aspek1,
                     'max_a1'    =>  $request->max_a1,
@@ -36,13 +36,13 @@ class KhController extends Controller
                     'aspek4'    =>  $request->aspek4,
                     'max_a4'    =>  $request->max_a4
                 );
-                DB::table('kh')
+                DB::table('m_kh')
                     ->where('kh_id', $request->kh_id)
                     ->update($data);
             }
             if($request->action == 'delete')
             {
-                DB::table('kh')
+                DB::table('m_kh')
                     ->where('kh_id', $request->kh_id)
                     ->delete();
             }
@@ -57,16 +57,16 @@ class KhController extends Controller
 
     public function store(Request $request)
     {
-      $kh = new kh;
-      $kh->jenis_kh	= $request->jenis_kh;
-      $kh->kkm   	= $request->kkm;
-      $kh->aspek1	= $request->aspek1;
+      $kh = new Kh;
+      $kh->kh_nama	= $request->kh_nama;
+      $kh->kkm   	  = $request->kkm;
+      $kh->aspek1	  = $request->aspek1;
       $kh->max_a1   = $request->max_a1;
-      $kh->aspek2	= $request->aspek2;
+      $kh->aspek2	  = $request->aspek2;
       $kh->max_a2   = $request->max_a2;
-      $kh->aspek3	= $request->aspek3;
+      $kh->aspek3	  = $request->aspek3;
       $kh->max_a3   = $request->max_a3;
-      $kh->aspek4	= $request->aspek4;
+      $kh->aspek4	  = $request->aspek4;
       $kh->max_a4   = $request->max_a4;
 
       if ($kh->save()){

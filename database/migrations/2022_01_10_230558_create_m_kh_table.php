@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKhTable extends Migration
+class CreateMKhTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateKhTable extends Migration
      */
     public function up()
     {
-        Schema::create('kh', function (Blueprint $table) {
+        Schema::create('m_kh', function (Blueprint $table) {
             $table->increments('kh_id');   
-            $table->string('jenis_kh');                     
+            $table->string('kh_nama');                     
             $table->integer('kkm');
             $table->string('aspek1');
             $table->string('aspek2');
             $table->string('aspek3');
             $table->string('aspek4');
-            $table->string('max_a1');
-            $table->string('max_a2');
-            $table->string('max_a3');
-            $table->string('max_a4');
+            $table->double('max_a1', 6, 2);
+            $table->double('max_a2', 6, 2);
+            $table->double('max_a3', 6, 2);
+            $table->double('max_a4', 6, 2);
         });
     }
 
@@ -35,6 +35,6 @@ class CreateKhTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kh');
+        Schema::dropIfExists('m_kh');
     }
 }

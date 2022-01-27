@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThAjarTable extends Migration
+class CreateMThAjarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateThAjarTable extends Migration
      */
     public function up()
     {
-        Schema::create('th_ajar', function (Blueprint $table) {
+        Schema::create('m_th_ajar', function (Blueprint $table) {
             $table->increments('ta_id');   
             $table->string('th_ajaran');  
             $table->string('smt');
+            $table->string('status');
         });
     }
 
@@ -27,6 +28,6 @@ class CreateThAjarTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('th_ajar');
+        Schema::dropIfExists('m_th_ajar');
     }
 }

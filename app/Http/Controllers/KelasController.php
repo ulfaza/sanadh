@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Input;  
+use Excel;
 use App\User;
 use App\Kelas;
 
@@ -11,8 +13,8 @@ class KelasController extends Controller
 {
     public function index(){
         $data['no'] = 1;
-        $kelas = DB::table('kelas')
-        	->join('users', 'users.id', '=', 'kelas.id')
+        $kelas = DB::table('m_kelas')
+        	->join('users', 'users.id', '=', 'm_kelas.wali')
         	->get();
         $data['kelas'] = $kelas;
         return view('/admin/kelas/index',$data);
@@ -28,9 +30,10 @@ class KelasController extends Controller
 
     public function store(Request $request)
     {
-      $kelas = new kelas;
-      $kelas->id     		= $request->id;
-      $kelas->nama_kelas    = $request->nama_kelas;
+      $kelas = new Kelas;
+      $kelas->wali     = $request->wali;
+      $kelas->tingkat  = $request->tingkat;
+      $kelas->k_nama   = $request->k_nama;
 
       if ($kelas->save()){
         return redirect('/admin/kelas');
@@ -42,28 +45,52 @@ class KelasController extends Controller
 
     public function edit($id)
     {
-        // mengambil data users berdasarkan id yang dipilih
-        $kelas = DB::table('kelas')
-        	->join('users', 'users.id', '=', 'kelas.id')
-        	->where('kelas.k_id',$id)
+        $kelas = DB::table('m_kelas')
+        	->join('users', 'users.id', '=', 'm_kelas.wali')
+        	->where('m_kelas.k_id',$id)
         	->get();
+        $guru = DB::table('users')
+            ->where('role',"guru")->get();
+        $data['guru'] = $guru;
         $data['kelas'] = $kelas;
-        // passing data admin yang didapat ke view edit_profil.blade.php
-        return view('/admin/kelas/edit')->with('kelas', $kelas);
-        // return view('/admin/edit_karakteristik')->with('karakteristik', $karakteristik);
-		// return redirect()->route('edit.kelas', $id);
+        return view('/admin/kelas/edit',$data);
     }
 
     public function update(Request $request, $id){
-        DB::table('users')->where('id',$request->id)->update([
-            'nama' => $request->nama,
-            'email' => $request->email
+        DB::table('m_kelas')->where('k_id',$request->id)->update([
+            'wali'      => $request->wali,
+            'tingkat'   => $request->tingkat,
+            'k_nama'    => $request->k_nama
         ]);           
-      	return redirect()->route('adminhome');
+      	return redirect()->route('kelas');
     }
 
     public function delete($k_id){
         $kelas = Kelas::findOrFail($k_id)->delete();
         return redirect()->route('kelas');
+    }
+
+    public function import()  
+    {  
+        return view('/admin/kelas/import');  
+    }
+
+    public function importExcel()  
+    {  
+        if(Input::hasFile('import_file')){  
+            $path = Input::file('import_file')->getRealPath();  
+            $data = Excel::load($path, function($reader) {  
+            })->get();  
+            if(!empty($data) && $data->count()){  
+                foreach ($data as $key => $value) {  
+                    $insert[] = ['wali' => $value->wali, 'tingkat' => $value->tingkat, 'k_nama' => $value->k_nama];  
+                }  
+                if(!empty($insert)){  
+                    DB::table('m_kelas')->insert($insert);  
+                    return redirect()->route('kelas');  
+                }  
+            }  
+        }  
+        return back();  
     }
 }

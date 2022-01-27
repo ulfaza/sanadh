@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Siswa extends Model
 {
     use Notifiable;
-    protected $table = 'siswa';
+    protected $table = 'm_siswa';
+    public $timestamps = false;
     protected $primaryKey = 's_id';
 
 
     public $incrementing = true;    
 
     protected $fillable = [
-        's_nama', 'nis', 'nisn',
+        'nama', 'nis', 'nisn',
     ];
 
     public function kelas()

@@ -8,15 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     use Notifiable;
-    protected $table = 'kelas';
+    protected $table = 'm_kelas';
+    public $timestamps = false;
     protected $primaryKey = 'k_id';
     
     protected $fillable = [
-        'k_id', 'id', 'nama_kelas'
+        'wali', 'tingkat', 'k_nama'
     ];
 
-    public function subkarakteristik()
+    public function siswa()
     {
         return $this->hasMany(\App\Siswa::class);
+    }
+
+    public function uji_kh()
+    {
+        return $this->hasMany(\App\UjiKh::class);
     }
 }

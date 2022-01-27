@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSiswaTable extends Migration
+class CreateMSiswaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateSiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('siswa', function (Blueprint $table) {
+        Schema::create('m_siswa', function (Blueprint $table) {
             $table->increments('s_id')->unique();                        
             $table->integer('k_id')->unsigned();
-            $table->string('s_nama');
             $table->string('nis')->unique();
             $table->string('nisn')->unique();
+            $table->string('s_nama');
         });
-        Schema::table('siswa', function($table){
+        Schema::table('m_siswa', function($table){
             $table->foreign('k_id')
                 ->references('k_id')
-                ->on('kelas')
+                ->on('m_kelas')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -36,6 +36,6 @@ class CreateSiswaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswa');
+        Schema::dropIfExists('m_siswa');
     }
 }

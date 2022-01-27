@@ -8,42 +8,10 @@
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-		<link rel="stylesheet" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css') }}" />
-
-		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-duallistbox.min.css') }}" />
-		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-multiselect.min.css') }}" />
-		<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}" />
-
-		<!-- text fonts -->
-		<link rel="stylesheet" href="{{ asset('assets/css/fonts.googleapis.com.css') }}" />
-
-		<!-- ace styles -->
-		<link rel="stylesheet" href="{{ asset('assets/css/ace.min.css') }}" class="ace-main-stylesheet" id="main-ace-style" />
-
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-		<![endif]-->
-		<link rel="stylesheet" href="{{ asset('assets/css/ace-skins.min.css')}}" />
-		<link rel="stylesheet" href="{{ asset('assets/css/ace-rtl.min.css')}}" />
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+		@include('admin/loadcss')
 
 		<!-- inline styles related to this page -->
 
-		<!-- ace settings handler -->
-		<script src="{{ asset('assets/js/ace-extra.min.js') }}"></script>
-
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-		<!--[if lte IE 8]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
 	</head>
 
 	<body class="no-skin">
@@ -71,15 +39,6 @@
 								<a href="{{route('insert.kelas')}}">Tambah Kelas</a>
 							</li>
 						</ul><!-- /.breadcrumb -->
-
-						<div class="nav-search" id="nav-search">
-							<form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-							</form>
-						</div><!-- /.nav-search -->
 					</div>
 
 					<div class="page-header">
@@ -99,7 +58,7 @@
 										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Wali Kelas </label>
 
 										<div class="col-xs-12 col-sm-9">
-											<select  id="id" name="id" class="select2" data-placeholder="Click to Choose...">
+											<select  id="wali" name="wali" class="select2" data-placeholder="Click to Choose...">
 												@foreach($guru as $g)
 												<option value="{{ $g->id }}">{{ $g->nama }}</option>
 												@endforeach
@@ -107,10 +66,21 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> Tingkat </label>
+
+										<div class="col-sm-9">
+											<select class="col-xs-10 col-sm-5" id="tingkat" name="tingkat" data-placeholder="Pilih Tingkat...">
+												<option>10</option>
+												<option>11</option>
+												<option>12</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right"> Nama Kelas </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="nama_kelas" name="nama_kelas" class="col-xs-10 col-sm-5" />
+											<input type="text" id="k_nama" name="k_nama" class="col-xs-10 col-sm-5" />
 										</div>
 									</div>
 									<div class="clearfix form-actions">
@@ -142,32 +112,8 @@
 			</a>
 		</div><!-- /.main-container -->
 
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src="{{ asset('assets/js/jquery-2.1.4.min.js')}}"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src={{ asset('assets/js/jquery.mobile.custom.min.js')}} >"+"<"+"/script>");
-		</script>
-		<script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
-
-		<!-- page specific plugin scripts -->
-		<script src="{{ asset('assets/js/jquery.bootstrap-duallistbox.min.js') }}"></script>
-		<script src="{{ asset('assets/js/jquery.raty.min.js') }}"></script>
-		<script src="{{ asset('assets/js/bootstrap-multiselect.min.js') }}"></script>
-		<script src="{{ asset('assets/js/select2.min.js') }}"></script>
-		<script src="{{ asset('assets/js/jquery-typeahead.js') }}"></script>
-
-		<!-- ace scripts -->
-		<script src="{{ asset('assets/js/ace-elements.min.js')}}"></script>
-		<script src="{{ asset('assets/js/ace.min.js')}}"></script>
-
+		@include('admin/loadjs')
+		
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($){

@@ -9,11 +9,16 @@ class ThAjar extends Model
 {
     use Notifiable;
 
-	protected $table = 'th_ajar';
+	protected $table = 'm_th_ajar';
 	public $timestamps = false;
     protected $primarykey = 'ta_id';
 
     protected $fillable = [
-        'smt', 'th_ajar', 
+        'smt', 'th_ajaran', 
     ];
+
+    public function uji_kh()
+    {
+        return $this->hasMany(\App\UjiKh::class);
+    }
 }
